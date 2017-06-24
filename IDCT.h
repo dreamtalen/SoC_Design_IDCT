@@ -86,8 +86,64 @@ private:
     MxU32 r_reg5;
     MxU32 r_reg6;
     MxU32 r_reg7;
-    MxU32 r_r_status;
-    MxU32 r_r_ctrl;
+    MxU32 r_reg8;
+    MxU32 r_reg9;
+    MxU32 r_reg10;
+    MxU32 r_reg11;
+    MxU32 r_reg12;
+    MxU32 r_reg13;
+    MxU32 r_reg14;
+    MxU32 r_reg15;
+    MxU32 r_reg16;
+    MxU32 r_reg17;
+    MxU32 r_reg18;
+    MxU32 r_reg19;
+    MxU32 r_reg20;
+    MxU32 r_reg21;
+    MxU32 r_reg22;
+    MxU32 r_reg23;
+    MxU32 r_reg24;
+    MxU32 r_reg25;
+    MxU32 r_reg26;
+    MxU32 r_reg27;
+    MxU32 r_reg28;
+    MxU32 r_reg29;
+    MxU32 r_reg30;
+    MxU32 r_reg31;
+    MxU32 r_reg32;
+    MxU32 r_reg33;
+    MxU32 r_reg34;
+    MxU32 r_reg35;
+    MxU32 r_reg36;
+    MxU32 r_reg37;
+    MxU32 r_reg38;
+    MxU32 r_reg39;
+    MxU32 r_reg40;
+    MxU32 r_reg41;
+    MxU32 r_reg42;
+    MxU32 r_reg43;
+    MxU32 r_reg44;
+    MxU32 r_reg45;
+    MxU32 r_reg46;
+    MxU32 r_reg47;
+    MxU32 r_reg48;
+    MxU32 r_reg49;
+    MxU32 r_reg50;
+    MxU32 r_reg51;
+    MxU32 r_reg52;
+    MxU32 r_reg53;
+    MxU32 r_reg54;
+    MxU32 r_reg55;
+    MxU32 r_reg56;
+    MxU32 r_reg57;
+    MxU32 r_reg58;
+    MxU32 r_reg59;
+    MxU32 r_reg60;
+    MxU32 r_reg61;
+    MxU32 r_reg62;
+    MxU32 r_reg63;
+    MxU32 r_ctrl;
+    MxU32 r_status;
 
 
 
@@ -95,6 +151,7 @@ private:
     // ...
     // This shows an example state variable for the save/restore mechanism.
     // int		exampleStateVariable;
+    MxU32 data[64];
 
 };
 
