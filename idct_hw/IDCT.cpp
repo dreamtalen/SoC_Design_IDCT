@@ -14,6 +14,57 @@
 #include "ahb_s_TS.h"
 
 #include "IDCT_MxDI.h"
+const int c1=251 ; /* cos(pi/16)<<8 */
+const int s1=50 ; /* sin(pi/16)<<8 */
+const int c3=213 ; /* cos(3pi/16)<<8 */
+const int s3=142 ; /* sin(3pi/16)<<8 */
+const int r2c6=277; /* cos(6pi/16)*sqrt(2)<<9 */
+const int r2s6=669;
+const int r2=181; /* sqrt(2)<<7 */
+
+void IDCT::onecycle(int i){
+  MxU32 x0,x1,x2,x3,x4,x5,x6,x7,x8;
+  /* Stage 4 */
+  if(i<8){
+      x0=data[i*8+0]<<9, x1=data[i*8+1]<<7, x2=data[i*8+2],
+      x3=data[i*8+3]*r2, x4=data[i*8+4]<<9, x5=data[i*8+5]*r2,
+      x6=data[i*8+6], x7=data[i*8+7]<<7;
+      x8=x7+x1; x1 -= x7;
+      /* Stage 3 */
+      x7=x0+x4; x0-=x4; x4=x1+x5; x1-=x5; x5=x3+x8; x8-=x3;
+      x3=r2c6*(x2+x6);x6=x3+(-r2c6-r2s6)*x6;x2=x3+(-r2c6+r2s6)*x2;
+      /* Stage 2 */
+      x3=x7+x2; x7-=x2; x2=x0+x6; x0-= x6;
+      x6=c3*(x4+x5);x5=(x6+(-c3-s3)*x5)>>6;x4=(x6+(-c3+s3)*x4)>>6;
+      x6=c1*(x1+x8);x1=(x6+(-c1-s1)*x1)>>6;x8=(x6+(-c1+s1)*x8)>>6;
+      /* Stage 1, rounding and output */
+      x7+=512; x2+=512;x0+=512;x3+=512;
+      data[i*8+0]=(x3+x4)>>10; data[i*8+1]=(x2+x8)>>10;
+      data[i*8+2]=(x0+x1)>>10; data[i*8+3]=(x7+x5)>>10;
+      data[i*8+4]=(x7-x5)>>10; data[i*8+5]=(x0-x1)>>10;
+      data[i*8+6]=(x2-x8)>>10; data[i*8+7]=(x3-x4)>>10;
+  }
+  else{
+      x0=data[i-8+0]<<9, x1=data[i-8+8]<<7, x2=data[i-8+16],
+      x3=data[i-8+24]*r2, x4=data[i-8+32]<<9, x5=data[i-8+40]*r2,
+      x6=data[i-8+48], x7=data[i-8+56]<<7;
+      x8=x7+x1; x1 -= x7;
+      /* Stage 3 */
+      x7=x0+x4; x0-=x4; x4=x1+x5; x1-=x5; x5=x3+x8; x8-=x3;
+      x3=r2c6*(x2+x6);x6=x3+(-r2c6-r2s6)*x6;x2=x3+(-r2c6+r2s6)*x2;
+      /* Stage 2 */
+      x3=x7+x2; x7-=x2; x2=x0+x6; x0-= x6;
+      x6=c3*(x4+x5);x5=(x6+(-c3-s3)*x5)>>6;x4=(x6+(-c3+s3)*x4)>>6;
+      x6=c1*(x1+x8);x1=(x6+(-c1-s1)*x1)>>6;x8=(x6+(-c1+s1)*x8)>>6;
+      /* Stage 1, rounding and output */
+      x7+=512; x2+=512;x0+=512;x3+=512;
+      data[i-8+0]=(x3+x4)>>11; data[i-8+8]=(x2+x8)>>11;
+      data[i-8+16]=(x0+x1)>>11; data[i-8+24]=(x7+x5)>>11;
+      data[i-8+32]=(x7-x5)>>11; data[i-8+40]=(x0-x1)>>11;
+      data[i-8+48]=(x2-x8)>>11; data[i-8+56]=(x3-x4)>>11;
+      data ++;
+  }
+}
 
 
 IDCT::IDCT(sc_mx_m_base* c, const string &s) : sc_mx_module(c, s)
@@ -58,6 +109,92 @@ IDCT::communicate()
 
 	// TODO:  Add your communicate code here.
 	// ...
+	switch(r_ctrl)
+	{
+		case IDCTSTART:
+			calc_counter = 0;
+			r_status = IDCTBUSY;
+			r_ctrl = IDCTNOOP;
+			break;
+
+		default:
+			if(r_status == IDCTBUSY)
+			{
+				if(calc_counter == 16)
+				{
+					r_reg0 = data[0];
+                    r_reg1 = data[1];
+                    r_reg2 = data[2];
+                    r_reg3 = data[3];
+                    r_reg4 = data[4];
+                    r_reg5 = data[5];
+                    r_reg6 = data[6];
+                    r_reg7 = data[7];
+                    r_reg8 = data[8];
+                    r_reg9 = data[9];
+                    r_reg10 = data[10];
+                    r_reg11 = data[11];
+                    r_reg12 = data[12];
+                    r_reg13 = data[13];
+                    r_reg14 = data[14];
+                    r_reg15 = data[15];
+                    r_reg16 = data[16];
+                    r_reg17 = data[17];
+                    r_reg18 = data[18];
+                    r_reg19 = data[19];
+                    r_reg20 = data[20];
+                    r_reg21 = data[21];
+                    r_reg22 = data[22];
+                    r_reg23 = data[23];
+                    r_reg24 = data[24];
+                    r_reg25 = data[25];
+                    r_reg26 = data[26];
+                    r_reg27 = data[27];
+                    r_reg28 = data[28];
+                    r_reg29 = data[29];
+                    r_reg30 = data[30];
+                    r_reg31 = data[31];
+                    r_reg32 = data[32];
+                    r_reg33 = data[33];
+                    r_reg34 = data[34];
+                    r_reg35 = data[35];
+                    r_reg36 = data[36];
+                    r_reg37 = data[37];
+                    r_reg38 = data[38];
+                    r_reg39 = data[39];
+                    r_reg40 = data[40];
+                    r_reg41 = data[41];
+                    r_reg42 = data[42];
+                    r_reg43 = data[43];
+                    r_reg44 = data[44];
+                    r_reg45 = data[45];
+                    r_reg46 = data[46];
+                    r_reg47 = data[47];
+                    r_reg48 = data[48];
+                    r_reg49 = data[49];
+                    r_reg50 = data[50];
+                    r_reg51 = data[51];
+                    r_reg52 = data[52];
+                    r_reg53 = data[53];
+                    r_reg54 = data[54];
+                    r_reg55 = data[55];
+                    r_reg56 = data[56];
+                    r_reg57 = data[57];
+                    r_reg58 = data[58];
+                    r_reg59 = data[59];
+                    r_reg60 = data[60];
+                    r_reg61 = data[61];
+                    r_reg62 = data[62];
+                    r_reg63 = data[63];
+
+					r_status = IDCTIDLE;
+				}
+				else if (calc_counter >16)
+					r_status = IDCTIDLE;
+				//r_status = MD5IDLE;
+			}
+			break;
+	}
 }
 
 void
@@ -70,7 +207,79 @@ IDCT::update()
 		message(MX_MSG_DEBUG,"Executing update function");
 	}
 #endif
+if(r_status == MD5BUSY)
+	{
+		if(calc_counter == 0)
+		{
+			data[0]  =  r_reg0;
+            data[1]  =  r_reg1;
+            data[2]  =  r_reg2;
+            data[3]  =  r_reg3;
+            data[4]  =  r_reg4;
+            data[5]  =  r_reg5;
+            data[6]  =  r_reg6;
+            data[7]  =  r_reg7;
+            data[8]  =  r_reg8;
+            data[9]  =  r_reg9;
+            data[10] =  r_reg10;
+            data[11] =  r_reg11;
+            data[12] =  r_reg12;
+            data[13] =  r_reg13;
+            data[14] =  r_reg14;
+            data[15] =  r_reg15;
+            data[16] =  r_reg16;
+            data[17] =  r_reg17;
+            data[18] =  r_reg18;
+            data[19] =  r_reg19;
+            data[20] =  r_reg20;
+            data[21] =  r_reg21;
+            data[22] =  r_reg22;
+            data[23] =  r_reg23;
+            data[24] =  r_reg24;
+            data[25] =  r_reg25;
+            data[26] =  r_reg26;
+            data[27] =  r_reg27;
+            data[28] =  r_reg28;
+            data[29] =  r_reg29;
+            data[30] =  r_reg30;
+            data[31] =  r_reg31;
+            data[32] =  r_reg32;
+            data[33] =  r_reg33;
+            data[34] =  r_reg34;
+            data[35] =  r_reg35;
+            data[36] =  r_reg36;
+            data[37] =  r_reg37;
+            data[38] =  r_reg38;
+            data[39] =  r_reg39;
+            data[40] =  r_reg40;
+            data[41] =  r_reg41;
+            data[42] =  r_reg42;
+            data[43] =  r_reg43;
+            data[44] =  r_reg44;
+            data[45] =  r_reg45;
+            data[46] =  r_reg46;
+            data[47] =  r_reg47;
+            data[48] =  r_reg48;
+            data[49] =  r_reg49;
+            data[50] =  r_reg50;
+            data[51] =  r_reg51;
+            data[52] =  r_reg52;
+            data[53] =  r_reg53;
+            data[54] =  r_reg54;
+            data[55] =  r_reg55;
+            data[56] =  r_reg56;
+            data[57] =  r_reg57;
+            data[58] =  r_reg58;
+            data[59] =  r_reg59;
+            data[60] =  r_reg60;
+            data[61] =  r_reg61;
+            data[62] =  r_reg62;
+            data[63] =  r_reg63;
 
+		}
+		onecycle(calc_counter);
+		calc_counter++;
+	}
 	 // TODO:  Add your update code here.
 	 // ...
 }
