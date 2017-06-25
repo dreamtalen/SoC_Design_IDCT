@@ -17,7 +17,17 @@
 
 
 // Place global class declarations here:
-
+enum IDCTStatus
+{
+    IDCTIDLE = 0,
+    IDCTBUSY = 1,
+};
+enum IDCTCtrl
+{
+    IDCTNOOP = 0,
+    IDCTSTART = 1,
+    IDCTCLEAR = 2,
+};
 
 class IDCT_MxDI;
 
@@ -152,7 +162,8 @@ private:
     // This shows an example state variable for the save/restore mechanism.
     // int		exampleStateVariable;
     MxU32 data[64];
-
+	int calc_counter;
+    void onecycle(int i);
 };
 
 #endif

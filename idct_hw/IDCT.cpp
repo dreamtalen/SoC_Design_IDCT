@@ -62,7 +62,6 @@ void IDCT::onecycle(int i){
       data[i-8+16]=(x0+x1)>>11; data[i-8+24]=(x7+x5)>>11;
       data[i-8+32]=(x7-x5)>>11; data[i-8+40]=(x0-x1)>>11;
       data[i-8+48]=(x2-x8)>>11; data[i-8+56]=(x3-x4)>>11;
-      data ++;
   }
 }
 
@@ -207,7 +206,7 @@ IDCT::update()
 		message(MX_MSG_DEBUG,"Executing update function");
 	}
 #endif
-if(r_status == MD5BUSY)
+if(r_status == IDCTBUSY)
 	{
 		if(calc_counter == 0)
 		{

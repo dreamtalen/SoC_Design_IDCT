@@ -7,78 +7,78 @@
 
 
 volatile const int* r_status=(int*)(BASEADDR);
-volatile int* const r_ctrl=(int*)(BASEADDR+8);
-volatile int* const  r_reg0 =(int*)(BASEADDR+16);
-volatile int* const  r_reg1 =(int*)(BASEADDR+24);
-volatile int* const  r_reg2 =(int*)(BASEADDR+32);
-volatile int* const  r_reg3 =(int*)(BASEADDR+40);
-volatile int* const  r_reg4 =(int*)(BASEADDR+48);
-volatile int* const  r_reg5 =(int*)(BASEADDR+56);
-volatile int* const  r_reg6 =(int*)(BASEADDR+64);
-volatile int* const  r_reg7 =(int*)(BASEADDR+72);
-volatile int* const  r_reg8 =(int*)(BASEADDR+80);
-volatile int* const  r_reg9 =(int*)(BASEADDR+88);
-volatile int* const  r_reg10=(int*)(BASEADDR+96);
-volatile int* const  r_reg11=(int*)(BASEADDR+104);
-volatile int* const  r_reg12=(int*)(BASEADDR+112);
-volatile int* const  r_reg13=(int*)(BASEADDR+120);
-volatile int* const  r_reg14=(int*)(BASEADDR+128);
-volatile int* const  r_reg15=(int*)(BASEADDR+136);
-volatile int* const  r_reg16=(int*)(BASEADDR+144);
-volatile int* const  r_reg17=(int*)(BASEADDR+152);
-volatile int* const  r_reg18=(int*)(BASEADDR+160);
-volatile int* const  r_reg19=(int*)(BASEADDR+168);
-volatile int* const  r_reg20=(int*)(BASEADDR+176);
-volatile int* const  r_reg21=(int*)(BASEADDR+184);
-volatile int* const  r_reg22=(int*)(BASEADDR+192);
-volatile int* const  r_reg23=(int*)(BASEADDR+200);
-volatile int* const  r_reg24=(int*)(BASEADDR+208);
-volatile int* const  r_reg25=(int*)(BASEADDR+216);
-volatile int* const  r_reg26=(int*)(BASEADDR+224);
-volatile int* const  r_reg27=(int*)(BASEADDR+232);
-volatile int* const  r_reg28=(int*)(BASEADDR+240);
-volatile int* const  r_reg29=(int*)(BASEADDR+248);
-volatile int* const  r_reg30=(int*)(BASEADDR+256);
-volatile int* const  r_reg31=(int*)(BASEADDR+264);
-volatile int* const  r_reg32=(int*)(BASEADDR+272);
-volatile int* const  r_reg33=(int*)(BASEADDR+280);
-volatile int* const  r_reg34=(int*)(BASEADDR+288);
-volatile int* const  r_reg35=(int*)(BASEADDR+296);
-volatile int* const  r_reg36=(int*)(BASEADDR+304);
-volatile int* const  r_reg37=(int*)(BASEADDR+312);
-volatile int* const  r_reg38=(int*)(BASEADDR+320);
-volatile int* const  r_reg39=(int*)(BASEADDR+328);
-volatile int* const  r_reg40=(int*)(BASEADDR+336);
-volatile int* const  r_reg41=(int*)(BASEADDR+344);
-volatile int* const  r_reg42=(int*)(BASEADDR+352);
-volatile int* const  r_reg43=(int*)(BASEADDR+360);
-volatile int* const  r_reg44=(int*)(BASEADDR+368);
-volatile int* const  r_reg45=(int*)(BASEADDR+376);
-volatile int* const  r_reg46=(int*)(BASEADDR+384);
-volatile int* const  r_reg47=(int*)(BASEADDR+392);
-volatile int* const  r_reg48=(int*)(BASEADDR+400);
-volatile int* const  r_reg49=(int*)(BASEADDR+408);
-volatile int* const  r_reg50=(int*)(BASEADDR+416);
-volatile int* const  r_reg51=(int*)(BASEADDR+424);
-volatile int* const  r_reg52=(int*)(BASEADDR+432);
-volatile int* const  r_reg53=(int*)(BASEADDR+440);
-volatile int* const  r_reg54=(int*)(BASEADDR+448);
-volatile int* const  r_reg55=(int*)(BASEADDR+456);
-volatile int* const  r_reg56=(int*)(BASEADDR+464);
-volatile int* const  r_reg57=(int*)(BASEADDR+472);
-volatile int* const  r_reg58=(int*)(BASEADDR+480);
-volatile int* const  r_reg59=(int*)(BASEADDR+488);
-volatile int* const  r_reg60=(int*)(BASEADDR+496);
-volatile int* const  r_reg61=(int*)(BASEADDR+504);
-volatile int* const  r_reg62=(int*)(BASEADDR+512);
-volatile int* const  r_reg63=(int*)(BASEADDR+520);
+volatile int* const r_ctrl=(int*)(BASEADDR+4);
+volatile int* const  r_reg0 =(int*)(BASEADDR+8);
+volatile int* const  r_reg1 =(int*)(BASEADDR+12);
+volatile int* const  r_reg2 =(int*)(BASEADDR+16);
+volatile int* const  r_reg3 =(int*)(BASEADDR+20);
+volatile int* const  r_reg4 =(int*)(BASEADDR+24);
+volatile int* const  r_reg5 =(int*)(BASEADDR+28);
+volatile int* const  r_reg6 =(int*)(BASEADDR+32);
+volatile int* const  r_reg7 =(int*)(BASEADDR+36);
+volatile int* const  r_reg8 =(int*)(BASEADDR+40);
+volatile int* const  r_reg9 =(int*)(BASEADDR+44);
+volatile int* const  r_reg10=(int*)(BASEADDR+48);
+volatile int* const  r_reg11=(int*)(BASEADDR+52);
+volatile int* const  r_reg12=(int*)(BASEADDR+56);
+volatile int* const  r_reg13=(int*)(BASEADDR+60);
+volatile int* const  r_reg14=(int*)(BASEADDR+64);
+volatile int* const  r_reg15=(int*)(BASEADDR+68);
+volatile int* const  r_reg16=(int*)(BASEADDR+72);
+volatile int* const  r_reg17=(int*)(BASEADDR+76);
+volatile int* const  r_reg18=(int*)(BASEADDR+80);
+volatile int* const  r_reg19=(int*)(BASEADDR+84);
+volatile int* const  r_reg20=(int*)(BASEADDR+88);
+volatile int* const  r_reg21=(int*)(BASEADDR+92);
+volatile int* const  r_reg22=(int*)(BASEADDR+96);
+volatile int* const  r_reg23=(int*)(BASEADDR+100);
+volatile int* const  r_reg24=(int*)(BASEADDR+104);
+volatile int* const  r_reg25=(int*)(BASEADDR+108);
+volatile int* const  r_reg26=(int*)(BASEADDR+112);
+volatile int* const  r_reg27=(int*)(BASEADDR+116);
+volatile int* const  r_reg28=(int*)(BASEADDR+120);
+volatile int* const  r_reg29=(int*)(BASEADDR+124);
+volatile int* const  r_reg30=(int*)(BASEADDR+128);
+volatile int* const  r_reg31=(int*)(BASEADDR+132);
+volatile int* const  r_reg32=(int*)(BASEADDR+136);
+volatile int* const  r_reg33=(int*)(BASEADDR+140);
+volatile int* const  r_reg34=(int*)(BASEADDR+144);
+volatile int* const  r_reg35=(int*)(BASEADDR+148);
+volatile int* const  r_reg36=(int*)(BASEADDR+152);
+volatile int* const  r_reg37=(int*)(BASEADDR+156);
+volatile int* const  r_reg38=(int*)(BASEADDR+160);
+volatile int* const  r_reg39=(int*)(BASEADDR+164);
+volatile int* const  r_reg40=(int*)(BASEADDR+168);
+volatile int* const  r_reg41=(int*)(BASEADDR+172);
+volatile int* const  r_reg42=(int*)(BASEADDR+176);
+volatile int* const  r_reg43=(int*)(BASEADDR+180);
+volatile int* const  r_reg44=(int*)(BASEADDR+184);
+volatile int* const  r_reg45=(int*)(BASEADDR+188);
+volatile int* const  r_reg46=(int*)(BASEADDR+192);
+volatile int* const  r_reg47=(int*)(BASEADDR+196);
+volatile int* const  r_reg48=(int*)(BASEADDR+200);
+volatile int* const  r_reg49=(int*)(BASEADDR+204);
+volatile int* const  r_reg50=(int*)(BASEADDR+208);
+volatile int* const  r_reg51=(int*)(BASEADDR+212);
+volatile int* const  r_reg52=(int*)(BASEADDR+216);
+volatile int* const  r_reg53=(int*)(BASEADDR+220);
+volatile int* const  r_reg54=(int*)(BASEADDR+224);
+volatile int* const  r_reg55=(int*)(BASEADDR+228);
+volatile int* const  r_reg56=(int*)(BASEADDR+232);
+volatile int* const  r_reg57=(int*)(BASEADDR+236);
+volatile int* const  r_reg58=(int*)(BASEADDR+240);
+volatile int* const  r_reg59=(int*)(BASEADDR+244);
+volatile int* const  r_reg60=(int*)(BASEADDR+248);
+volatile int* const  r_reg61=(int*)(BASEADDR+252);
+volatile int* const  r_reg62=(int*)(BASEADDR+256);
+volatile int* const  r_reg63=(int*)(BASEADDR+260);
 
 
 
 void display(int *DataIn){
 	int i;
 	for (i = 0;i < 64;i++){
-	    printf("%d ", data[i]);
+	    printf("%d ", DataIn[i]);
 	    if (i%8 == 7 ) printf("\n");
 	}
 }
@@ -92,7 +92,7 @@ int main(){
 	}
 	printf("\n -- DataIn -- \n");
 	display(Data1);
-    *r_reg0 = Data1[0];
+	*r_reg0 = Data1[0];
     *r_reg1 = Data1[1];
     *r_reg2 = Data1[2];
     *r_reg3 = Data1[3];
@@ -156,11 +156,15 @@ int main(){
     *r_reg61 = Data1[61];
     *r_reg62 = Data1[62];
     *r_reg63 = Data1[63];
-
-
-	printf("\n -- IDCT1 -- \n");
+	printf("%d \n", *r_reg63);
+	printf("%d \n", *r_reg62);
+	printf("%d \n", *r_reg61);
+	printf("\n -- IDCT -- \n");
+	for(i=0; i < 16; i++){
+		while(*r_status);
+		*r_ctrl = 1;
+	}
 	while(*r_status);
-	*r_ctrl = 1;
 	data[0]  =  *r_reg0;
     data[1]  =  *r_reg1;
     data[2]  =  *r_reg2;
