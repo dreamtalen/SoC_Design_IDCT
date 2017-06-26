@@ -108,109 +108,13 @@ IDCT::communicate()
 
 	// TODO:  Add your communicate code here.
 	// ...
-	switch(r_ctrl)
-	{
-		case IDCTSTART:
-			calc_counter = 0;
-			r_status = IDCTBUSY;
-			r_ctrl = IDCTNOOP;
-			break;
-
-		default:
-			if(r_status == IDCTBUSY)
-			{
-				if(calc_counter == 16)
-				{
-					r_reg0 = data[0];
-                    r_reg1 = data[1];
-                    r_reg2 = data[2];
-                    r_reg3 = data[3];
-                    r_reg4 = data[4];
-                    r_reg5 = data[5];
-                    r_reg6 = data[6];
-                    r_reg7 = data[7];
-                    r_reg8 = data[8];
-                    r_reg9 = data[9];
-                    r_reg10 = data[10];
-                    r_reg11 = data[11];
-                    r_reg12 = data[12];
-                    r_reg13 = data[13];
-                    r_reg14 = data[14];
-                    r_reg15 = data[15];
-                    r_reg16 = data[16];
-                    r_reg17 = data[17];
-                    r_reg18 = data[18];
-                    r_reg19 = data[19];
-                    r_reg20 = data[20];
-                    r_reg21 = data[21];
-                    r_reg22 = data[22];
-                    r_reg23 = data[23];
-                    r_reg24 = data[24];
-                    r_reg25 = data[25];
-                    r_reg26 = data[26];
-                    r_reg27 = data[27];
-                    r_reg28 = data[28];
-                    r_reg29 = data[29];
-                    r_reg30 = data[30];
-                    r_reg31 = data[31];
-                    r_reg32 = data[32];
-                    r_reg33 = data[33];
-                    r_reg34 = data[34];
-                    r_reg35 = data[35];
-                    r_reg36 = data[36];
-                    r_reg37 = data[37];
-                    r_reg38 = data[38];
-                    r_reg39 = data[39];
-                    r_reg40 = data[40];
-                    r_reg41 = data[41];
-                    r_reg42 = data[42];
-                    r_reg43 = data[43];
-                    r_reg44 = data[44];
-                    r_reg45 = data[45];
-                    r_reg46 = data[46];
-                    r_reg47 = data[47];
-                    r_reg48 = data[48];
-                    r_reg49 = data[49];
-                    r_reg50 = data[50];
-                    r_reg51 = data[51];
-                    r_reg52 = data[52];
-                    r_reg53 = data[53];
-                    r_reg54 = data[54];
-                    r_reg55 = data[55];
-                    r_reg56 = data[56];
-                    r_reg57 = data[57];
-                    r_reg58 = data[58];
-                    r_reg59 = data[59];
-                    r_reg60 = data[60];
-                    r_reg61 = data[61];
-                    r_reg62 = data[62];
-                    r_reg63 = data[63];
-
-					r_status = IDCTIDLE;
-				}
-				else if (calc_counter >16)
-					r_status = IDCTIDLE;
-				//r_status = MD5IDLE;
-			}
-			break;
-	}
-}
-
-void
-IDCT::update()
-{
-	// the following message will be printed only in the debug version of MxExplorer
-#ifdef _DEBUG_
-	if (p_enableDbgMsg == true)
-	{
-		message(MX_MSG_DEBUG,"Executing update function");
-	}
-#endif
+printf("communicate\n");
 if(r_status == IDCTBUSY)
-	{
-		if(calc_counter == 0)
-		{
-			data[0]  =  r_reg0;
+    {
+        if(calc_counter == 0)
+        {
+            printf("communicate initial\n");
+            data[0]  =  r_reg0;
             data[1]  =  r_reg1;
             data[2]  =  r_reg2;
             data[3]  =  r_reg3;
@@ -275,10 +179,110 @@ if(r_status == IDCTBUSY)
             data[62] =  r_reg62;
             data[63] =  r_reg63;
 
-		}
-		onecycle(calc_counter);
-		calc_counter++;
+        }
+        onecycle(calc_counter);
+        calc_counter++;
+        printf("one cycle, calc_counter: %d\n", calc_counter);
+    }
+}
+
+void
+IDCT::update()
+{
+	// the following message will be printed only in the debug version of MxExplorer
+#ifdef _DEBUG_
+	if (p_enableDbgMsg == true)
+	{
+		message(MX_MSG_DEBUG,"Executing update function");
 	}
+#endif
+printf("update\n");
+    switch(r_ctrl)
+    {
+        case IDCTSTART:
+            calc_counter = 0;
+            r_status = IDCTBUSY;
+            r_ctrl = IDCTNOOP;
+            break;
+
+        default:
+            if(r_status == IDCTBUSY)
+            {
+                if(calc_counter == 16)
+                {
+                    r_reg0 = data[0];
+                    r_reg1 = data[1];
+                    r_reg2 = data[2];
+                    r_reg3 = data[3];
+                    r_reg4 = data[4];
+                    r_reg5 = data[5];
+                    r_reg6 = data[6];
+                    r_reg7 = data[7];
+                    r_reg8 = data[8];
+                    r_reg9 = data[9];
+                    r_reg10 = data[10];
+                    r_reg11 = data[11];
+                    r_reg12 = data[12];
+                    r_reg13 = data[13];
+                    r_reg14 = data[14];
+                    r_reg15 = data[15];
+                    r_reg16 = data[16];
+                    r_reg17 = data[17];
+                    r_reg18 = data[18];
+                    r_reg19 = data[19];
+                    r_reg20 = data[20];
+                    r_reg21 = data[21];
+                    r_reg22 = data[22];
+                    r_reg23 = data[23];
+                    r_reg24 = data[24];
+                    r_reg25 = data[25];
+                    r_reg26 = data[26];
+                    r_reg27 = data[27];
+                    r_reg28 = data[28];
+                    r_reg29 = data[29];
+                    r_reg30 = data[30];
+                    r_reg31 = data[31];
+                    r_reg32 = data[32];
+                    r_reg33 = data[33];
+                    r_reg34 = data[34];
+                    r_reg35 = data[35];
+                    r_reg36 = data[36];
+                    r_reg37 = data[37];
+                    r_reg38 = data[38];
+                    r_reg39 = data[39];
+                    r_reg40 = data[40];
+                    r_reg41 = data[41];
+                    r_reg42 = data[42];
+                    r_reg43 = data[43];
+                    r_reg44 = data[44];
+                    r_reg45 = data[45];
+                    r_reg46 = data[46];
+                    r_reg47 = data[47];
+                    r_reg48 = data[48];
+                    r_reg49 = data[49];
+                    r_reg50 = data[50];
+                    r_reg51 = data[51];
+                    r_reg52 = data[52];
+                    r_reg53 = data[53];
+                    r_reg54 = data[54];
+                    r_reg55 = data[55];
+                    r_reg56 = data[56];
+                    r_reg57 = data[57];
+                    r_reg58 = data[58];
+                    r_reg59 = data[59];
+                    r_reg60 = data[60];
+                    r_reg61 = data[61];
+                    r_reg62 = data[62];
+                    r_reg63 = data[63];
+
+                    r_status = IDCTIDLE;
+                }
+                else if (calc_counter >16)
+                    r_status = IDCTIDLE;
+                //r_status = MD5IDLE;
+            }
+            break;
+    }
 	 // TODO:  Add your update code here.
 	 // ...
 }

@@ -12,68 +12,103 @@ void display(int *DataIn){
 	}
 }
 
-void IDCT(int *data){
-  static const int c1=251 ; /* cos(pi/16)<<8 */
-  static const int s1=50 ; /* sin(pi/16)<<8 */
-  static const int c3=213 ; /* cos(3pi/16)<<8 */
-  static const int s3=142 ; /* sin(3pi/16)<<8 */
-  static const int r2c6=277; /* cos(6pi/16)*sqrt(2)<<9 */
-  static const int r2s6=669;
-  static const int r2=181; /* sqrt(2)<<7 */
-  int i;
-  int x0,x1,x2,x3,x4,x5,x6,x7,x8;
-  /* Stage 4 */
-  for(i=0;i<8;i++){
-      x0=data[0]<<9, x1=data[1]<<7, x2=data[2],
-      x3=data[3]*r2, x4=data[4]<<9, x5=data[5]*r2,
-      x6=data[6], x7=data[7]<<7;
-      x8=x7+x1; x1 -= x7;
-      /* Stage 3 */
-      x7=x0+x4; x0-=x4; x4=x1+x5; x1-=x5; x5=x3+x8; x8-=x3;
-      x3=r2c6*(x2+x6);x6=x3+(-r2c6-r2s6)*x6;x2=x3+(-r2c6+r2s6)*x2;
-      /* Stage 2 */
-      x3=x7+x2; x7-=x2; x2=x0+x6; x0-= x6;
-      x6=c3*(x4+x5);x5=(x6+(-c3-s3)*x5)>>6;x4=(x6+(-c3+s3)*x4)>>6;
-      x6=c1*(x1+x8);x1=(x6+(-c1-s1)*x1)>>6;x8=(x6+(-c1+s1)*x8)>>6;
-      /* Stage 1, rounding and output */
-      x7+=512; x2+=512;x0+=512;x3+=512;
-      *data++=(x3+x4)>>10; *data++=(x2+x8)>>10;
-      *data++=(x0+x1)>>10; *data++=(x7+x5)>>10;
-      *data++=(x7-x5)>>10; *data++=(x0-x1)>>10;
-      *data++=(x2-x8)>>10; *data++=(x3-x4)>>10;
-  }
-  data -= 64;
-  for(i=0;i<8;i++){
-      x0=data[0]<<9, x1=data[8]<<7, x2=data[16],
-      x3=data[24]*r2, x4=data[32]<<9, x5=data[40]*r2,
-      x6=data[48], x7=data[56]<<7;
-      x8=x7+x1; x1 -= x7;
-      /* Stage 3 */
-      x7=x0+x4; x0-=x4; x4=x1+x5; x1-=x5; x5=x3+x8; x8-=x3;
-      x3=r2c6*(x2+x6);x6=x3+(-r2c6-r2s6)*x6;x2=x3+(-r2c6+r2s6)*x2;
-      /* Stage 2 */
-      x3=x7+x2; x7-=x2; x2=x0+x6; x0-= x6;
-      x6=c3*(x4+x5);x5=(x6+(-c3-s3)*x5)>>6;x4=(x6+(-c3+s3)*x4)>>6;
-      x6=c1*(x1+x8);x1=(x6+(-c1-s1)*x1)>>6;x8=(x6+(-c1+s1)*x8)>>6;
-      /* Stage 1, rounding and output */
-      x7+=512; x2+=512;x0+=512;x3+=512;
-      data[0]=(x3+x4)>>11; data[8]=(x2+x8)>>11;
-      data[16]=(x0+x1)>>11; data[24]=(x7+x5)>>11;
-      data[32]=(x7-x5)>>11; data[40]=(x0-x1)>>11;
-      data[48]=(x2-x8)>>11; data[56]=(x3-x4)>>11;
-      data ++;
-  }
-  data -=8;
-  display(data);
+void IDCT(int *Block){
+int           m,n,x,y;
+int x_t [8];
+int y_t [8];
+  short IDCT_coefficient[64]= 
+  { 64, 64, 64, 64, 64, 64, 64, 64,
+    89, 75, 50, 18 ,-18 ,-50,-75,-89,
+    83, 36 ,-36 ,-83,-83,-36 , 36 , 83,
+    75,-18 ,-89,-50, 50, 89, 18 ,-75,
+    64,-64,-64, 64, 64,-64,-64, 64,
+    50,-89, 18 , 75,-75,-18 , 89,-50,
+    36 ,-83, 83,-36 ,-36 , 83,-83, 36 ,
+    18 ,-50, 75,-89, 89,-75, 50,-18  };
+  //================================//
+  //=== END: from original IDCT   ===//
+  //================================//        
+              
+      int index = 0;
+      
+      //================================//
+      //=== BEGIN: from original IDCT ===//
+      //================================//
+
+
+      for(y=0;y<2;y++)      //IDCT_1D*2
+      {
+        for(x=0;x<8;x++)  //IDCT_1D
+        {
+          if(y==0)      //column
+          {
+            x_t[0]=(int)(Block[   x]); 
+            x_t[1]=(int)(Block[8 +x]);
+            x_t[2]=(int)(Block[16+x]);
+            x_t[3]=(int)(Block[24+x]);
+            x_t[4]=(int)(Block[32+x]);
+            x_t[5]=(int)(Block[40+x]);
+            x_t[6]=(int)(Block[48+x]);
+            x_t[7]=(int)(Block[56+x]);
+            //message( MX_MSG_WARNING, "%d", x_t[0] );
+          }
+          else          //row
+          {
+            x_t[0]=(int)(Block[8*x  ]);
+            x_t[1]=(int)(Block[8*x+1]);
+            x_t[2]=(int)(Block[8*x+2]);
+            x_t[3]=(int)(Block[8*x+3]);
+            x_t[4]=(int)(Block[8*x+4]);
+            x_t[5]=(int)(Block[8*x+5]);
+            x_t[6]=(int)(Block[8*x+6]);
+            x_t[7]=(int)(Block[8*x+7]);
+          }
+
+          for(m=0;m<8;m++)
+          {
+            y_t[m]=0;
+            for(n=0;n<8;n++)
+            {
+              y_t[m]=y_t[m]+(int)(IDCT_coefficient[n*8+m])*x_t[n];
+              //message( MX_MSG_WARNING, "%d", y_t[m] );
+              //y_t[m]=n;
+            }
+          }
+
+          if(y==0)
+          {
+            Block[   x]=(short)((y_t[0]+64)>>7);
+            Block[8 +x]=(short)((y_t[1]+64)>>7);
+            Block[16+x]=(short)((y_t[2]+64)>>7);
+            Block[24+x]=(short)((y_t[3]+64)>>7);
+            Block[32+x]=(short)((y_t[4]+64)>>7);
+            Block[40+x]=(short)((y_t[5]+64)>>7);
+            Block[48+x]=(short)((y_t[6]+64)>>7);
+            Block[56+x]=(short)((y_t[7]+64)>>7);
+            //message( MX_MSG_WARNING, "%d", Block[x] );
+          }
+          else
+          {
+            Block[8*x  ]=(short)((y_t[0]+2048)>>12);
+            Block[8*x+1]=(short)((y_t[1]+2048)>>12);
+            Block[8*x+2]=(short)((y_t[2]+2048)>>12);
+            Block[8*x+3]=(short)((y_t[3]+2048)>>12);
+            Block[8*x+4]=(short)((y_t[4]+2048)>>12);
+            Block[8*x+5]=(short)((y_t[5]+2048)>>12);
+            Block[8*x+6]=(short)((y_t[6]+2048)>>12);
+            Block[8*x+7]=(short)((y_t[7]+2048)>>12);
+          }
+        } //End IDCT_1D                   
+      } //End IDCT_2D
+    display(Block);
 }
 
 int main(){
-	int Data1[64];
+	// int Data1[64];
 	int Data2[64];
 	int i;
-	for(i = 0;i < 64;i++){
-	    Data1[i] = rand()%256 - 128;
-	}
+  int Data1 [64] = {6120, -2040, -1224, -1224, -1224, -816, -408, -408, -1224, 408, 0, 0, 0, 0, 0, 0, -1632, 0, 0, 0, 0, 0, 0, 0, -2040, 408, 0, 0, 0, 0, 0, 0, -2040, 0, 408, 0, 0, 0, 0, 0, -1632, 0, 0, 0, 0, 0, 0, 0, -1224, 0, 0, 0, 0, 0, 0, 0, -816, 0, 0, 0, 0, 0, 0, 0};
+
 	printf("\n -- DataIn -- \n");
 	display(Data1);
 	printf("\n -- IDCT -- \n");
